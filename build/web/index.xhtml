@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title> Eleição </title>
+    </h:head>
+    <h:body>
+        
+        <h:form id="form">
+            <h:messages style="color: red"/>
+            <h:panelGrid columns="2">
+                <h:column>
+                     <h:outputLabel value="Nome: " />
+                </h:column>
+                <h:column>
+                    <h:inputText id="nome" validator="#{empresaBean.validaNomeNotFla}" 
+                                 requiredMessage="Você deve informar o nome!" required="true" value="#{empresaBean.empresa.nome}" >
+                        <f:validateLength minimum="3" maximum="10"/>
+                    </h:inputText>
+                    <h:message for="nome"/>
+                </h:column>
+                    
+                <h:column>
+                     <h:outputLabel value="CNPJ: " />
+                </h:column>
+                <h:column>
+                    <h:inputText required="true" value="#{empresaBean.empresa.cnpj}" />
+                </h:column>
+                
+                <h:column>
+                    <h:outputLabel value="Presidente: " />
+                </h:column>
+                <h:column>
+                    <h:selectOneMenu value="#{empresaBean.empresa.presidente}">
+                        <f:selectItem itemLabel="Selecione o presidente..." itemValue="" /> 
+                        <f:selectItems value="#{presidenteBean.presidentes}" var="presidente" 
+                                       itemLabel="#{presidente.nome}" 
+                                       itemValue="#{presidente}"/>
+                        <f:converter converterId="presidenteConverter" />
+                    </h:selectOneMenu>
+                </h:column>
+                
+                <h:column>
+                    <h:outputLabel value="Apresentação" />
+                </h:column>
+                <h:column>
+                    <h:selectBooleanCheckbox value="#{empresaBean.check}" />
+                </h:column>
+                
+                <h:column>
+                    <h:commandButton action="#{empresaBean.salvar}" value="Salvar!"/>
+                </h:column>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
